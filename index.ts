@@ -13,6 +13,14 @@ interface Events {
     [event: string]: boolean;
 }
 
+interface Control {
+    execute: (command: string) => void;
+}
+
+interface Steering extends Control {
+    turn: (direction: string) => void;
+}
+
 class Car implements AutonomousCar {
     isRunning;
     constructor(props: AutonomousCarProps) {
@@ -26,7 +34,20 @@ class Car implements AutonomousCar {
     }
 }
 
+class SteeringControl implements Steering {
+    execute(command: string) {
+        console.log(`Executing: ${command}`)
+    }
+
+    turn(direction: string) {
+        this.execute(`turn ${direction}`);
+    }
+}
+
 const autonomousCar = new Car({ isRunning: false });
 
+const steer = new SteeringControl()
+
 // console.log(autonomousCar.isRunning);
-autonomousCar.respond(getObstacleEvents());
+// autonomousCar.respond(getObstacleEvents());
+steer.turn('right');

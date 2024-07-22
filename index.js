@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const computer_vision_1 = require("./computer-vision");
 class Car {
     constructor(props) {
         this.isRunning = props.isRunning;
@@ -11,6 +10,16 @@ class Car {
         }
     }
 }
+class SteeringControl {
+    execute(command) {
+        console.log(`Executing: ${command}`);
+    }
+    turn(direction) {
+        this.execute(`turn ${direction}`);
+    }
+}
 const autonomousCar = new Car({ isRunning: false });
+const steer = new SteeringControl();
 // console.log(autonomousCar.isRunning);
-autonomousCar.respond((0, computer_vision_1.getObstacleEvents)());
+// autonomousCar.respond(getObstacleEvents());
+steer.turn('right');
