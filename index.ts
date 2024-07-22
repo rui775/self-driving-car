@@ -35,6 +35,18 @@ class Car implements AutonomousCar {
         if (!this.isRunning) {
             console.log('The car is off...')
         }
+
+        Object.keys(events).forEach(eventKey => {
+            if (!events[eventKey]) {
+                return;
+            }
+            if (eventKey === 'ObstacleLeft') {
+                this.steeringControl.turn('right');
+            }
+            if (eventKey === 'ObstacleRight') {
+                this.steeringControl.turn('left');
+            }
+        })
     }
 }
 
@@ -50,10 +62,10 @@ class SteeringControl implements Steering {
 
 const steer = new SteeringControl()
 const autonomousCar = new Car({
-    isRunning: false,
+    isRunning: true,
     steeringControl: steer,
 });
 
 // console.log(autonomousCar.isRunning);
-// autonomousCar.respond(getObstacleEvents());
+autonomousCar.respond(getObstacleEvents());
 // steer.turn('right');
